@@ -1,2 +1,2 @@
-# Analisis-Numerico
+# Análisis Numérico
 Calculadora de métodos

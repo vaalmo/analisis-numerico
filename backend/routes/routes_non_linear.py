@@ -31,7 +31,7 @@ def secant():
     result = chapter1.calculate_secant()
     return jsonify(result)
 
-@non_linear_api.route('/multiple_roots', methods=["POST"])
+@non_linear_api.route('/multiple_roots', methods=["POST"])  
 def multiple_roots():
     data = request.get_json()
     result = chapter1.calculate_multiple_roots()

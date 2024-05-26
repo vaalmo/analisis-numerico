@@ -11,7 +11,7 @@ def graficar(f, x, y, title=None):
     plt.grid()
     plt.xlabel('x')
     plt.ylabel('y')
-    plt.show()
+    plt.savefig('./images/foo.png', bbox_inches='tight')
 
 def graficar_spline(list_f, x, y, title='Interpolacion Spline'):
 
@@ -29,4 +29,4 @@ def graficar_spline(list_f, x, y, title='Interpolacion Spline'):
     plt.grid()
     plt.xlabel('x')
     plt.ylabel('y')
-    plt.show()
+    plt.savefig('foo.png', bbox_inches='tight')

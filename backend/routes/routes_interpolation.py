@@ -11,13 +11,13 @@ interpolation_api = Blueprint('interpolation', __name__)
 def lagrange():
     data = request.get_json()
     result = chapter3.calculateLagrange(data["x"],data["y"])
-    return jsonify(list(result))
+    return jsonify(result)
 
 @interpolation_api.route('/newton', methods=["POST"])
 def newton():
     data = request.get_json()
     result = chapter3.calculateNewton(data["x"],data["y"])
-    return jsonify(result[0])
+    return jsonify(result[2])
 
 @interpolation_api.route('/spline', methods=["POST"])
 def spline():

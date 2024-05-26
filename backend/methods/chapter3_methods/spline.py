@@ -157,6 +157,20 @@ def construct_list_polynomials(list):
         list_f.append(poly.Polynomial(p[::-1]))
     return list_f
 
+def poliToString(f):
+    n = len(f)
+    i = 0
+    polin = ''
+    while i < len(f):
+        if n < 2:
+            polin = polin + str(round(f[i], 4)) + 'x + '
+        else:
+            polin = polin + str(round(f[i], 4)) + 'x^'+ str(n-1) + ' + ' 
+        i = i + 1
+        n = n - 1
+    polin = polin.strip('x +')
+    return polin
+
 """
 #### Falta estandarizar el orden de los vectores;
 #### Recomiendo ordenar x de menor a mayor

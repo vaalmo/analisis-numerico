@@ -1,5 +1,5 @@
 import numpy as np
-from . import grafica
+#import grafica
 
 # Crea una lista de los distintos polinomios P1, P2, ...
 def poly_lagrange(x_v):
@@ -28,9 +28,25 @@ def main_lagrange(x, y):
     list_poly = poly_lagrange(x)
     return interpolation_lagrange(y, list_poly)
 
+def poliToString(f):
+    n = len(f)
+    i = 0
+    polin = ''
+    while i < len(f):
+        if n < 2:
+            polin = polin + str(round(f[i], 4)) + 'x + '
+        else:
+            polin = polin + str(round(f[i], 4)) + 'x^'+ str(n-1) + ' + ' 
+        i = i + 1
+        n = n - 1
+    polin = polin.strip('x +')
+    return polin
+
 """x = [-2,-1,2,3]
 y = [12.1353, 6.3678, -4.6109, 2.085536]
-#list_poly = poly_lagrange(x)
+list_poly = poly_lagrange(x)
+print(list_poly)
 f = main_lagrange(x,y)
-graficar(f, x, y, 'Interpolacion lagrange')
-print(f)"""
+#graficar(f, x, y, 'Interpolacion lagrange')
+print(f)
+print(poliToString(list(f)))"""

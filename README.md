@@ -1,2 +1,2 @@
 # Análisis Numérico
-Calculadora de métodos
+Calculadora de métodos (Shrek themed)

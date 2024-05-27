@@ -1,146 +1,106 @@
-import React from "react";
-import {
-  Input,
-  VStack,
-  Heading,
-  FormLabel,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  Button,
-  RadioGroup,
-  Stack,
-  Radio,
-  Checkbox,
-} from "@chakra-ui/react";
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+<Container maxW='550px' color='black' >
+<VStack
+  as="form"
+  minWidth="30%"
+  bgColor="#F5FFC6"
+  padding="2em"
+  borderRadius="12px"
+  shadow="md"
+  mt="4em"
+  onSubmit={handleSubmit(onSubmit, onInvalid)}
+>
+  <Heading>Multiple Roots</Heading>
 
-const phoneRegExp =
-  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
-const formSchema = yup
-  .object({
-    name: yup.string(),
-    email: yup
-      .string()
-      .email("Please introduce a valid email")
-      .required("Email is required"),
-    phoneNumber: yup
-      .string()
-      .matches(phoneRegExp, "It doesn't seem to be a phone number")
-      .length(11, "Phone number is too short"),
-    multiple: yup
-      .array()
-      .of(yup.string())
-      .ensure()
-      .compact()
-      .min(1, "I bet you like one of those").required(),
-    radio: yup.string(),
-  })
-  .required();
-
-const Bisection2 = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    control,
-  } = useForm({
-    resolver: yupResolver(formSchema),
-    defaultValues: {
-      radio: "1",
-    },
-  });
-  const onSubmit = (data) => console.log(data);
-  const onInvalid = () => null;
-  React.useEffect(() => {
-    console.log(errors);
-  }, [errors]);
-  return (
-    <VStack
-      as="form"
-      minWidth="30%"
-      bgColor="#F5FFC6"
-      padding="2em"
-      borderRadius="12px"
-      shadow="md"
-      mt="4em"
-      onSubmit={handleSubmit(onSubmit, onInvalid)}
-    >
-      <Heading>User details</Heading>
-      <FormControl>
-        <FormLabel htmlFor="name">Name</FormLabel>
-        <Input type="text" {...register("name")} />
-        <FormHelperText>Your first name</FormHelperText>
-      </FormControl>
-      <FormControl isInvalid={errors?.email}>
-        <FormLabel htmlFor="email">Email address</FormLabel>
-        <Input type="text" {...register("email")} />
-        {errors?.email ? (
-          <FormErrorMessage>{errors.email.message}</FormErrorMessage>
-        ) : (
-          <FormHelperText>We'll never share your email.</FormHelperText>
-        )}
-      </FormControl>
-      <FormControl isInvalid={errors?.phoneNumber}>
-        <FormLabel htmlFor="phoneNumber">Phone Number</FormLabel>
-        <Input {...register("phoneNumber")} />
-        {errors?.email ? (
-          <FormErrorMessage>{errors.phoneNumber.message}</FormErrorMessage>
-        ) : (
-          <FormHelperText>Your daily phone number is fine.</FormHelperText>
-        )}
-      </FormControl>
-      <FormControl isInvalid={errors?.radio}>
-        <FormLabel>Choose one</FormLabel>
-        <Controller
-          name="radio"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <RadioGroup onChange={onChange} value={value}>
-              <Stack direction="row">
-                <Radio value="1">Beach🏖️</Radio>
-                <Radio value="2">Mountain 🏔️</Radio>
-              </Stack>
-            </RadioGroup>
-          )}
-        />
-          <FormHelperText>Choose your favorite place for vacations</FormHelperText>
-      </FormControl>
-      <FormControl isInvalid={errors?.multiple}>
-        <FormLabel>Choose many</FormLabel>
-        <Stack direction="row">
-          <Checkbox value="1" {...register("multiple")}>
-          Pizza🍕
-          </Checkbox>
-          <Checkbox value="2" {...register("multiple")}>
-          Hamburger🍔
-          </Checkbox>
-          <Checkbox value="2" {...register("multiple")}>
-          Hot dog🌭
-          </Checkbox>
-        </Stack>
-        {errors?.multiple ? (
-          <FormErrorMessage>{errors.multiple.message}</FormErrorMessage>
-        ) : (
-          <FormHelperText>Choose your favorites fast food.</FormHelperText>
-        )}
-      </FormControl>
-
-      <Button
-        type="submit"
-        colorScheme="blue"
-        backgroundColor="cyan.400"
-        width="100%"
-      >
-        Submit
-      </Button>
-    </VStack>
-  );
-};
-
-export default Bisection2;
+    <FormControl isInvalid={errors?.functionf} errortext={errors?.functionf?.message} isRequired>
+    <FormLabel htmlFor="functionf">Function f</FormLabel>
+    <Input type="text" {...register("functionf")} borderColor="#251605" borderWidth="2px" placeholder='exp(x) - x - 1'/>
+    {errors?.functionf ? (
+      <FormErrorMessage>{errors?.functionf?.message}</FormErrorMessage>
+    ) : (
+      <FormHelperText></FormHelperText>
+    )}
+  </FormControl>
 
 
+  <FormControl isInvalid={errors?.functionf1} errortext={errors?.functionf1?.message} isRequired>
+    <FormLabel htmlFor="functionf1">Function f' (first derivative of f)</FormLabel>
+    <Input type="text" {...register("functionf1")} borderColor="#251605" borderWidth="2px" placeholder='exp(x) - 1'/>
+    {errors?.functionf1 ? (
+      <FormErrorMessage>{errors?.functionf1?.message}</FormErrorMessage>
+    ) : (
+      <FormHelperText></FormHelperText>
+    )}
+  </FormControl>
+
+  <FormControl isInvalid={errors?.functionf2} errortext={errors?.functionf2?.message} isRequired>
+    <FormLabel htmlFor="functionf2">Function f'' (second derivative of f)</FormLabel>
+    <Input type="text" {...register("functionf2")} borderColor="#251605" borderWidth="2px" placeholder='exp(x)'/>
+    {errors?.functionf2 ? (
+      <FormErrorMessage>{errors?.functionf2?.message}</FormErrorMessage>
+    ) : (
+      <FormHelperText></FormHelperText>
+    )}
+  </FormControl>
+
+
+  <FormControl isInvalid={errors?.initialvalue} errortext={errors?.initialvalue?.message} isRequired>
+    <FormLabel htmlFor="initialvalue">Initial value (x0)</FormLabel>
+    <Input type="number" {...register("initialvalue")} borderColor="#251605" borderWidth="2px" placeholder='1'/>
+    {errors?.initialvalue ? (
+      <FormErrorMessage>{errors?.initialvalue?.message}</FormErrorMessage>
+    ) : (
+      <FormHelperText></FormHelperText>
+    )}
+  </FormControl>
+
+
+  <FormControl isInvalid={errors?.tolerance} errortext={errors?.tolerance?.message} isRequired>
+    <FormLabel htmlFor="tolerance">Tolerance</FormLabel>
+    <Input type="number" {...register("tolerance")} borderColor="#251605" borderWidth="2px" placeholder='1e-5'/>
+    {errors?.tolerance ? (
+      <FormErrorMessage>{errors?.tolerance?.message}</FormErrorMessage>
+    ) : (
+      <FormHelperText></FormHelperText>
+    )}
+  </FormControl>
+
+
+  <FormControl isInvalid={errors?.maxiter} errortext={errors?.maxiter?.message} isRequired>
+    <FormLabel htmlFor="maxiter">Max Iterations</FormLabel>
+    <Input type="number" {...register("maxiter")} borderColor="#251605" borderWidth="2px" placeholder='100'/>
+    {errors?.maxiter ? (
+      <FormErrorMessage>{errors?.maxiter?.message}</FormErrorMessage>
+    ) : (
+      <FormHelperText></FormHelperText>
+    )}
+  </FormControl>
+
+  <FormControl isInvalid={errors?.errortype}>
+    <FormLabel>Error Type</FormLabel>
+    <Controller
+      name="errortype"
+      control={control}
+      render={({ field: { onChange, value } }) => (
+        <RadioGroup onChange={onChange} value={value}>
+          <Stack direction="row">
+            <Radio value="0">Relative</Radio>
+            <Radio value="1">Absolute</Radio>
+          </Stack>
+        </RadioGroup>
+      )}
+    />
+  </FormControl>
+  <br></br>
+
+
+  <Button onClick={handleSubmit(onSubmit)} color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" size='lg' fontWeight={'bold'} width='33%' >
+    Calculate
+  </Button>
+
+
+
+
+
+
+</VStack>
+</Container>

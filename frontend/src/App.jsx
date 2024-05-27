@@ -8,8 +8,6 @@ import  GaussSeidel from './pages/Linear/LinearMethods/GaussSeidel'
 import  Jacobi from './pages/Linear/LinearMethods/Jacobi'
 import  SOR from './pages/Linear/LinearMethods/SOR'
 
-
-
 import  HomeNonLinear from './pages/NonLinear/HomeNonLinear'
 import  Bisection from './pages/NonLinear/NonLinearMethods/Bisection'
 //import  Bisection2 from './pages/NonLinear/NonLinearMethods/Bisection2' es de prueba na mas

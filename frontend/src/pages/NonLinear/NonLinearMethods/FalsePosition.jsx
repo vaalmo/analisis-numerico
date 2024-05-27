@@ -48,19 +48,20 @@ const formSchema = yup
 
     function: yup
       .string()
-      .required("Function is required"),
+      .required(),
     lowint: yup
       .number()
-      .required("low interval is required"),
+      .required(),
     highint: yup
       .number()
-      .required("high interval is required"),
+      .required(),
     tolerance: yup
       .number()
-      .required("tolerance is required"),
+      .required(),
     maxiter: yup
       .number()
-      .required("maxiter is required"),
+      .positive()
+      .required(),
     errortype: yup.number(),
   })
   .required();
@@ -85,6 +86,8 @@ const FalsePosition = () => {
   return (
 
   <SimpleGrid columns={2} spacing={8}>
+
+
     <Container maxW='550px' color='black' >
     <VStack
       as="form"
@@ -97,26 +100,59 @@ const FalsePosition = () => {
       onSubmit={handleSubmit(onSubmit, onInvalid)}
     >
       <Heading>False Position</Heading>
-      <FormControl>
+
+        <FormControl isInvalid={errors?.function} errortext={errors?.function?.message} isRequired>
         <FormLabel htmlFor="function">Function</FormLabel>
         <Input type="text" {...register("function")} borderColor="#251605" borderWidth="2px" placeholder='log(sin(x)^2 + 1)-(1/2)'/>
+        {errors?.function ? (
+          <FormErrorMessage>{errors?.function?.message}</FormErrorMessage>
+        ) : (
+          <FormHelperText></FormHelperText>
+        )}
       </FormControl>
-      <FormControl>
+
+      <FormControl isInvalid={errors?.lowint} errortext={errors?.lowint?.message} isRequired>
         <FormLabel htmlFor="lowint">Lower interval value (a)</FormLabel>
         <Input type="number" {...register("lowint")} borderColor="#251605" borderWidth="2px" placeholder='0'/>
+        {errors?.lowint ? (
+          <FormErrorMessage>{errors?.lowint?.message}</FormErrorMessage>
+        ) : (
+          <FormHelperText></FormHelperText>
+        )}
       </FormControl>
-      <FormControl>
+
+      <FormControl isInvalid={errors?.highint} errortext={errors?.highint?.message} isRequired>
         <FormLabel htmlFor="highint">Higher interval value (b)</FormLabel>
         <Input type="number" {...register("highint")} borderColor="#251605" borderWidth="2px" placeholder='1'/>
+        {errors?.highint ? (
+          <FormErrorMessage>{errors?.highint?.message}</FormErrorMessage>
+        ) : (
+          <FormHelperText></FormHelperText>
+        )}
       </FormControl>
-      <FormControl>
+
+
+      <FormControl isInvalid={errors?.tolerance} errortext={errors?.tolerance?.message} isRequired>
         <FormLabel htmlFor="tolerance">Tolerance</FormLabel>
-        <Input type="number" {...register("tolerance")} borderColor="#251605" borderWidth="2px" placeholder='1e-7'/>
+        <Input type="number" {...register("tolerance")} borderColor="#251605" borderWidth="2px" placeholder='1e-5'/>
+        {errors?.tolerance ? (
+          <FormErrorMessage>{errors?.tolerance?.message}</FormErrorMessage>
+        ) : (
+          <FormHelperText></FormHelperText>
+        )}
       </FormControl>
-      <FormControl>
+
+
+      <FormControl isInvalid={errors?.maxiter} errortext={errors?.maxiter?.message} isRequired>
         <FormLabel htmlFor="maxiter">Max Iterations</FormLabel>
         <Input type="number" {...register("maxiter")} borderColor="#251605" borderWidth="2px" placeholder='100'/>
+        {errors?.maxiter ? (
+          <FormErrorMessage>{errors?.maxiter?.message}</FormErrorMessage>
+        ) : (
+          <FormHelperText></FormHelperText>
+        )}
       </FormControl>
+
       <FormControl isInvalid={errors?.errortype}>
         <FormLabel>Error Type</FormLabel>
         <Controller
@@ -135,13 +171,36 @@ const FalsePosition = () => {
       <br></br>
 
 
-      <Button color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" size='lg' fontWeight={'bold'} width='33%'>
-        Submit
+      <Button onClick={handleSubmit(onSubmit)} color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" size='lg' fontWeight={'bold'} width='33%' >
+        Calculate
       </Button>
+
+
+
+
 
 
     </VStack>
     </Container>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <Container maxW='600px' color='black'>
     <br></br>

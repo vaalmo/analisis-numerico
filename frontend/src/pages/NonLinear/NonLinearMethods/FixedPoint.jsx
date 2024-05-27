@@ -48,19 +48,20 @@ const formSchema = yup
 
     functionf: yup
       .string()
-      .required("Function f is required"),
+      .required(),
     functiong: yup
       .string()
-      .required("Function g is required"),
+      .required(),
     initialvalue: yup
       .number()
-      .required("initial value is required"),
+      .required(),
     tolerance: yup
       .number()
-      .required("tolerance is required"),
+      .required(),
     maxiter: yup
       .number()
-      .required("maxiter is required"),
+      .positive()
+      .required(),
     errortype: yup.number(),
   })
   .required();
@@ -85,6 +86,7 @@ const FixedPoint = () => {
   return (
 
   <SimpleGrid columns={2} spacing={8}>
+
     <Container maxW='550px' color='black' >
     <VStack
       as="form"
@@ -97,26 +99,60 @@ const FixedPoint = () => {
       onSubmit={handleSubmit(onSubmit, onInvalid)}
     >
       <Heading>Fixed Point</Heading>
-      <FormControl>
+
+        <FormControl isInvalid={errors?.functionf} errortext={errors?.functionf?.message} isRequired>
         <FormLabel htmlFor="functionf">Function f</FormLabel>
-        <Input type="text" {...register("functionf")} borderColor="#251605" borderWidth="2px" placeholder='log(sin(x)^2 + 1)-(1/2)-x'/>
+        <Input type="text" {...register("functionf")} borderColor="#251605" borderWidth="2px" placeholder='log(sin(x)^2 + 1)-(1/2) - x'/>
+        {errors?.functionf ? (
+          <FormErrorMessage>{errors?.functionf?.message}</FormErrorMessage>
+        ) : (
+          <FormHelperText></FormHelperText>
+        )}
       </FormControl>
-      <FormControl>
+
+
+      <FormControl isInvalid={errors?.functiong} errortext={errors?.functiong?.message} isRequired>
         <FormLabel htmlFor="functiong">Function g</FormLabel>
         <Input type="text" {...register("functiong")} borderColor="#251605" borderWidth="2px" placeholder='log(sin(x)^2 + 1)-(1/2)'/>
+        {errors?.functiong ? (
+          <FormErrorMessage>{errors?.functiong?.message}</FormErrorMessage>
+        ) : (
+          <FormHelperText></FormHelperText>
+        )}
       </FormControl>
-      <FormControl>
+
+      <FormControl isInvalid={errors?.initialvalue} errortext={errors?.initialvalue?.message} isRequired>
         <FormLabel htmlFor="initialvalue">Initial value (x0)</FormLabel>
         <Input type="number" {...register("initialvalue")} borderColor="#251605" borderWidth="2px" placeholder='-0.5'/>
+        {errors?.initialvalue ? (
+          <FormErrorMessage>{errors?.initialvalue?.message}</FormErrorMessage>
+        ) : (
+          <FormHelperText></FormHelperText>
+        )}
       </FormControl>
-      <FormControl>
+
+
+      <FormControl isInvalid={errors?.tolerance} errortext={errors?.tolerance?.message} isRequired>
         <FormLabel htmlFor="tolerance">Tolerance</FormLabel>
-        <Input type="number" {...register("tolerance")} borderColor="#251605" borderWidth="2px" placeholder='1e-7'/>
+        <Input type="number" {...register("tolerance")} borderColor="#251605" borderWidth="2px" placeholder='1e-5'/>
+        {errors?.tolerance ? (
+          <FormErrorMessage>{errors?.tolerance?.message}</FormErrorMessage>
+        ) : (
+          <FormHelperText></FormHelperText>
+        )}
       </FormControl>
-      <FormControl>
+
+
+      <FormControl isInvalid={errors?.maxiter} errortext={errors?.maxiter?.message} isRequired>
         <FormLabel htmlFor="maxiter">Max Iterations</FormLabel>
         <Input type="number" {...register("maxiter")} borderColor="#251605" borderWidth="2px" placeholder='100'/>
+        {errors?.maxiter ? (
+          <FormErrorMessage>{errors?.maxiter?.message}</FormErrorMessage>
+        ) : (
+          <FormHelperText></FormHelperText>
+        )}
       </FormControl>
+
       <FormControl isInvalid={errors?.errortype}>
         <FormLabel>Error Type</FormLabel>
         <Controller
@@ -135,9 +171,13 @@ const FixedPoint = () => {
       <br></br>
 
 
-      <Button color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" size='lg' fontWeight={'bold'} width='33%'>
-        Submit
+      <Button onClick={handleSubmit(onSubmit)} color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" size='lg' fontWeight={'bold'} width='33%' >
+        Calculate
       </Button>
+
+
+
+
 
 
     </VStack>

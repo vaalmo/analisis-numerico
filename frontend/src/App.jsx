@@ -18,7 +18,7 @@ import  MultipleRoots from './pages/NonLinear/NonLinearMethods/MultipleRoots';
 
 import  HomeInterpolation from './pages/Interpolation/HomeInterpolation'
 import  Lagrange from './pages/Interpolation/InterpolationMethods/Lagrange'
-import  Newton from './pages/Interpolation/InterpolationMethods/Newton'
+import  NewtonInt from './pages/Interpolation/InterpolationMethods/NewtonInt'
 import  Spline from './pages/Interpolation/InterpolationMethods/Spline'
 import  Vandermonde from './pages/Interpolation/InterpolationMethods/Vandermonde' 
 
@@ -47,7 +47,7 @@ function App() {
 
       <Route path="/interpolation"  element={<HomeInterpolation />}/>
       <Route path="/interpolation/lagrange"  element={<Lagrange />}/>
-      <Route path="/interpolation/newton"  element={<Newton />}/>
+      <Route path="/interpolation/newtonint"  element={<NewtonInt />}/>
       <Route path="/interpolation/spline"  element={<Spline />}/>
       <Route path="/interpolation/vandermonte"  element={<Vandermonde />}/>
     </Routes>

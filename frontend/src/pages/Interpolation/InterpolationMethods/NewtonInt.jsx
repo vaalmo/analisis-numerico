@@ -27,7 +27,7 @@ import axios from 'axios'
 
 
 
-const Vandermonde = () => {
+const NewtonInt = () => {
   const {
     register,
     handleSubmit,
@@ -55,7 +55,7 @@ const Vandermonde = () => {
     };
 
     try {
-      const response = await axios.post('http://127.0.0.1:5000/interpolation/vandermonte',
+      const response = await axios.post('http://127.0.0.1:5000/interpolation/newtonint',
         jsonData,
         { headers: { 'Content-Type': 'application/json' },
       });
@@ -97,7 +97,7 @@ const Vandermonde = () => {
           mt="4em"
           onSubmit={handleSubmit(onSubmit, onInvalid)}
         >
-          <Heading>Vandermonde</Heading>
+          <Heading>Newton Interpolation</Heading>
 
           <FormControl isInvalid={errors?.xvector} errortext={errors?.xvector?.message} isRequired>
             <FormLabel htmlFor="xvector">X vector</FormLabel>
@@ -222,4 +222,4 @@ const Vandermonde = () => {
   );
 };
 
-export default Vandermonde;
+export default NewtonInt;

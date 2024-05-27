@@ -38,7 +38,7 @@ const HomeInterpolation = () => {
             </CardBody>
             <CardFooter>
             <Button size='md' fontSize={'small'} color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" fontWeight={'bold'} width='100%'>
-                <Link to="/interpolation/newton">Vamos!</Link>
+                <Link to="/interpolation/newtonint">Vamos!</Link>
               </Button>
             </CardFooter>
           </Card>

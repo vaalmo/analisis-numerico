@@ -13,7 +13,7 @@ def imprimir_sistema_ecuaciones(A,b):
 
     for eq in equations:
         sp.pprint(eq)
-        
+
 def printSolution(lastX):
     solution = []
     xsub = 1

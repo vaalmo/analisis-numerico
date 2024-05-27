@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from methods import chapter3
+from methods import chapter3, write_file
 from flask import Blueprint
 interpolation_api = Blueprint('interpolation', __name__)
 
@@ -11,22 +11,26 @@ interpolation_api = Blueprint('interpolation', __name__)
 def lagrange():
     data = request.get_json()
     result = chapter3.calculateLagrange(data["x"],data["y"])
+    write_file.writeFile(result, 3)
     return jsonify(result)
 
 @interpolation_api.route('/newton', methods=["POST"])
 def newton():
     data = request.get_json()
     result = chapter3.calculateNewton(data["x"],data["y"])
+    write_file.writeFile(result[2], 3)
     return jsonify(result[2])
 
 @interpolation_api.route('/spline', methods=["POST"])
 def spline():
     data = request.get_json()
     result = chapter3.calculateSpline(data["x"],data["y"])
+    write_file.writeFile(result, 3)
     return jsonify(result)
 
 @interpolation_api.route('/vandermonte', methods=["POST"])
 def vandermonte():
     data = request.get_json()
     result = chapter3.calculateVander(data["x"],data["y"])
+    write_file.writeFile(result, 3)
     return jsonify(result)

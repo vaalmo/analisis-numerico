@@ -224,6 +224,10 @@ const Spline = () => {
                 <br></br>
                 yvector: 1, 5, 9, 16
               </ListItem>
+              <ListItem fontWeight={"bold"}>
+                <ListIcon as={CheckCircleIcon} color='green.500' />
+                Escribe en Spline Type: 1 para lineal, 2 para cuadratico, 3 para cubico.
+              </ListItem>
 
             </List>
             <br></br>

@@ -14,7 +14,7 @@ def calculateNewton(x, y):
     coef_0 , coef = newton_inter.newton_inter(x,y) # Vector de coeficientes b --> coef_0 Tabla --> coef
     polin = newton_inter.sym_polinomio(coef_0, x) # Polinomio
     print(polin)
-    return coef_0 + coef + str(polin.expr)
+    return coef_0, coef, str(polin.expr)
 
 def calculateSpline(x, y, d):
     p = spline.spline(x,y,d)

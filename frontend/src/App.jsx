@@ -19,8 +19,10 @@ import  Secant from './pages/NonLinear/NonLinearMethods/Secant';
 import  MultipleRoots from './pages/NonLinear/NonLinearMethods/MultipleRoots';
 
 import  HomeInterpolation from './pages/Interpolation/HomeInterpolation'
-
-
+import  Lagrange from './pages/Interpolation/InterpolationMethods/Lagrange'
+import  Newton from './pages/Interpolation/InterpolationMethods/Newton'
+import  Spline from './pages/Interpolation/InterpolationMethods/Spline'
+import  Vandermonde from './pages/Interpolation/InterpolationMethods/Vandermonde' 
 
 
 
@@ -46,10 +48,10 @@ function App() {
       <Route path="/non-linear/multiple-roots"  element={<MultipleRoots/>}/>
 
       <Route path="/interpolation"  element={<HomeInterpolation />}/>
-      <Route path="/interpolation/lagrange"  element={<HomeInterpolation />}/>
-      <Route path="/interpolation/newton"  element={<HomeInterpolation />}/>
-      <Route path="/interpolation/spline"  element={<HomeInterpolation />}/>
-      <Route path="/interpolation/vandermonte"  element={<HomeInterpolation />}/>
+      <Route path="/interpolation/lagrange"  element={<Lagrange />}/>
+      <Route path="/interpolation/newton"  element={<Newton />}/>
+      <Route path="/interpolation/spline"  element={<Spline />}/>
+      <Route path="/interpolation/vandermonte"  element={<Vandermonde />}/>
     </Routes>
  
     </>

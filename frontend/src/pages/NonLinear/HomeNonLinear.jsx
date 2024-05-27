@@ -15,13 +15,13 @@ const HomeNonLinear = () => {
 
          <br></br>
          <br></br>
-        <SimpleGrid spacing={20} columns={3}>
-          <Card backgroundColor='#F5FFC6' align={'center'} borderRadius="12px">
+        <SimpleGrid spacing={20} columns={3} align={'left'}>
+          <Card backgroundColor='#F5FFC6'  borderRadius="12px">
             <CardHeader>
               <Heading size='lg' fontWeight={'bold'}>Bisection</Heading>
             </CardHeader>
             <CardBody>
-              <Image src={bisectionimg} alt="gato con botah" borderRadius="md" width={500}/>
+              <Image src={bisectionimg} alt="gato con botah" borderRadius="md" width={500} height={262}/>
             </CardBody>
             <CardFooter>
               <Button size='md' fontSize={'small'} color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" fontWeight={'bold'} width='100%'>
@@ -29,7 +29,7 @@ const HomeNonLinear = () => {
               </Button>
             </CardFooter>
           </Card>
-          <Card backgroundColor='#F5FFC6' align={'center'} borderRadius="12px">
+          <Card backgroundColor='#F5FFC6'  borderRadius="12px">
             <CardHeader>
               <Heading size='lg' fontWeight={'bold'}>False Position</Heading>
             </CardHeader>
@@ -42,7 +42,7 @@ const HomeNonLinear = () => {
               </Button>
             </CardFooter>
           </Card>
-          <Card backgroundColor='#F5FFC6' align={'center'} borderRadius="12px">
+          <Card backgroundColor='#F5FFC6'  borderRadius="12px">
             <CardHeader>
               <Heading size='lg' fontWeight={'bold'}>Fixed Point</Heading>
             </CardHeader>
@@ -55,7 +55,7 @@ const HomeNonLinear = () => {
               </Button>
             </CardFooter>
           </Card>
-          <Card backgroundColor='#F5FFC6' align={'center'} borderRadius="12px">
+          <Card backgroundColor='#F5FFC6'  borderRadius="12px">
             <CardHeader>
               <Heading size='lg' fontWeight={'bold'}>Secant</Heading>
             </CardHeader>
@@ -68,7 +68,7 @@ const HomeNonLinear = () => {
               </Button>
             </CardFooter>
           </Card>
-          <Card backgroundColor='#F5FFC6' align={'center'} borderRadius="12px">
+          <Card backgroundColor='#F5FFC6'  borderRadius="12px">
             <CardHeader>
               <Heading size='lg' fontWeight={'bold'}>Multiple Roots</Heading>
             </CardHeader>

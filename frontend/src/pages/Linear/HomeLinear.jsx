@@ -2,9 +2,9 @@ import React from 'react'
 import {Button, Card, CardFooter, CardBody, Image, Text, SimpleGrid, CardHeader, Heading} from "@chakra-ui/react";
 import { Link } from 'react-router-dom';
 //import { SimpleGrid } from '@chakra-ui/react';
-import bisectionimg from '../media/bisectionimg.jpg'
-import rfimage from '../media/rfimage.jpg'
-import fpimage from '../media/fpimage.jpg'
+import gaussseidelimage from '../media/gaussseidelimage.jpg'
+import jacobi from '../media/jacobi.jpg'
+import sor from '../media/sor.jpg'
 
 
 const HomeLinear = () => {
@@ -14,13 +14,13 @@ const HomeLinear = () => {
 
          <br></br>
          <br></br>
-        <SimpleGrid spacing={20} columns={3}>
-          <Card backgroundColor='#F5FFC6' align={'center'} borderRadius="12px">
+        <SimpleGrid spacing={20} columns={3} align={'left'}>
+          <Card backgroundColor='#F5FFC6' borderRadius="12px">
             <CardHeader>
               <Heading size='lg' fontWeight={'bold'}>Gauss-Seidel</Heading>
             </CardHeader>
             <CardBody>
-              <Image src={bisectionimg} alt="gato con botah" borderRadius="md" width={500}/>
+              <Image src={gaussseidelimage} alt="gato con botah" borderRadius="md" width={500} height={262}/>
             </CardBody>
             <CardFooter>
               <Button size='md' fontSize={'small'} color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" fontWeight={'bold'} width='100%'>
@@ -28,12 +28,12 @@ const HomeLinear = () => {
               </Button>
             </CardFooter>
           </Card>
-          <Card backgroundColor='#F5FFC6' align={'center'} borderRadius="12px">
+          <Card backgroundColor='#F5FFC6'  borderRadius="12px">
             <CardHeader>
               <Heading size='lg' fontWeight={'bold'}>Jacobi</Heading>
             </CardHeader>
             <CardBody>
-              <Image src={rfimage} alt="humpty dumpty hp" borderRadius="md" width={500} height={262}/>
+              <Image src={jacobi} alt="humpty dumpty hp" borderRadius="md" width={500} height={262}/>
             </CardBody>
             <CardFooter>
             <Button size='md' fontSize={'small'} color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" fontWeight={'bold'} width='100%'>
@@ -41,12 +41,12 @@ const HomeLinear = () => {
               </Button>
             </CardFooter>
           </Card>
-          <Card backgroundColor='#F5FFC6' align={'center'} borderRadius="12px">
+          <Card backgroundColor='#F5FFC6'  borderRadius="12px">
             <CardHeader>
               <Heading size='lg' fontWeight={'bold'}>SOR</Heading>
             </CardHeader>
             <CardBody>
-              <Image src={fpimage} alt="kiti" borderRadius="md" width={500} height={265}/>
+              <Image src={sor} alt="kiti" borderRadius="md" width={500} height={265}/>
             </CardBody>
             <CardFooter>
             <Button size='md' fontSize={'small'} color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" fontWeight={'bold'} width='100%'>

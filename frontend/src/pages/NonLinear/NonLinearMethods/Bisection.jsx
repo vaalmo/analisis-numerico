@@ -287,6 +287,8 @@ const Bisection = () => {
         <Card backgroundColor='#F5FFC6' borderRadius="12px">
           <CardHeader>
             <Heading size='lg' fontWeight={'bold'}>Graph</Heading>
+            <br />
+            <Text>Para graficar debes darle al botón +, poner la función y se te graficará automáticamente! </Text>
           </CardHeader>
           <CardBody>
             <iframe
@@ -299,7 +301,7 @@ const Bisection = () => {
             ></iframe>
           </CardBody>
         </Card>
-        <br />
+        <br></br>
         <Card backgroundColor='#F5FFC6' borderRadius="12px">
           <CardHeader>
             <Heading size='lg' fontWeight={'bold'}>Download</Heading>

@@ -205,19 +205,39 @@ const NewtonInt = () => {
 
 </Container>
 
-<Container maxW='550px' color='black' >
-
-<br></br>
-
-  <Card backgroundColor='#F5FFC6'  borderRadius="12px">
-        <CardHeader>
-          <Heading size='lg' fontWeight={'bold'}>Graph</Heading>
-        </CardHeader>
-        <CardBody>
-          <Text>hola soy una grafica :p</Text>
-        </CardBody>
-  </Card>
-</Container>
+<Container maxW='1000px' color='black'>
+        <br />
+        <Card backgroundColor='#F5FFC6' borderRadius="12px">
+          <CardHeader>
+            <Heading size='lg' fontWeight={'bold'}>Graph</Heading>
+            <br />
+            <Text>Para graficar debes darle al botón +, poner la función y se te graficará automáticamente! </Text>
+          </CardHeader>
+          <CardBody>
+            <iframe
+              title="GeoGebra Calculator"
+              src="https://www.geogebra.org/calculator"
+              width="100%"
+              height="500px"
+              style={{ border: '0' }}
+              allowFullScreen
+            ></iframe>
+          </CardBody>
+        </Card>
+        <br />
+        <Card backgroundColor='#F5FFC6' borderRadius="12px">
+          <CardHeader>
+            <Heading size='lg' fontWeight={'bold'}>Download</Heading>
+          </CardHeader>
+          <CardBody>
+            <Button color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" size='lg' fontWeight={'semibold'} width='50%'>
+              <a href="http://127.0.0.1:5000/download3/solutionsChapter3.txt" download>
+                solutionsChapter3.txt
+              </a>
+            </Button>
+          </CardBody>
+        </Card>
+      </Container>
 
 
 

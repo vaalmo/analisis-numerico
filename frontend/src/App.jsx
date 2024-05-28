@@ -15,6 +15,7 @@ import  FalsePosition from './pages/NonLinear/NonLinearMethods/FalsePosition';
 import  FixedPoint from './pages/NonLinear/NonLinearMethods/FixedPoint';
 import  Secant from './pages/NonLinear/NonLinearMethods/Secant';
 import  MultipleRoots from './pages/NonLinear/NonLinearMethods/MultipleRoots';
+import  Newton from './pages/NonLinear/NonLinearMethods/Newton'
 
 import  HomeInterpolation from './pages/Interpolation/HomeInterpolation'
 import  Lagrange from './pages/Interpolation/InterpolationMethods/Lagrange'
@@ -38,12 +39,13 @@ function App() {
       <Route path="/linear/jacobi"  element={<Jacobi />}/>
       <Route path="/linear/sor"  element={<SOR />}/>
 
-      <Route path="/non-linear"  element={<HomeNonLinear/>}/>
-      <Route path="/non-linear/bisection"  element={<Bisection/>}/>
-      <Route path="/non-linear/fixed-point"  element={<FixedPoint/>}/>
-      <Route path="/non-linear/false-position"  element={<FalsePosition/>}/>
-      <Route path="/non-linear/secant"  element={<Secant/>}/>
-      <Route path="/non-linear/multiple-roots"  element={<MultipleRoots/>}/>
+      <Route path="/non_linear"  element={<HomeNonLinear/>}/>
+      <Route path="/non_linear/bisection"  element={<Bisection/>}/>
+      <Route path="/non_linear/fixed_point"  element={<FixedPoint/>}/>
+      <Route path="/non_linear/false_position"  element={<FalsePosition/>}/>
+      <Route path="/non_linear/secant"  element={<Secant/>}/>
+      <Route path="/non_linear/multiple_roots"  element={<MultipleRoots/>}/>
+      <Route path="/non_linear/newton" element={<Newton/>}/>
 
       <Route path="/interpolation"  element={<HomeInterpolation />}/>
       <Route path="/interpolation/lagrange"  element={<Lagrange />}/>

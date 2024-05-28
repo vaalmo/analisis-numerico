@@ -21,7 +21,7 @@ const NavBar=()=>{
                 <Spacer />
                 <ButtonGroup gap='5'>
                 <Button color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" size='lg' fontWeight={'bold'} width='36%'>
-                            <Link to="/non-linear">Non Linear</Link>
+                            <Link to="/non_linear">Non Linear</Link>
                         </Button>
                          <Button color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" size='lg' fontWeight={'bold'} width='33%'>
                             <Link to="/linear">Linear</Link>

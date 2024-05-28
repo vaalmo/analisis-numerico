@@ -31,7 +31,7 @@ const HomeInterpolation = () => {
           </Card>
           <Card backgroundColor='#F5FFC6'  borderRadius="12px">
             <CardHeader>
-              <Heading size='lg' fontWeight={'bold'}>Newton</Heading>
+              <Heading size='lg' fontWeight={'bold'}>Newton Interpolation</Heading>
             </CardHeader>
             <CardBody>
               <Image src={newton} alt="humpty dumpty hp" borderRadius="md" width={500} height={262}/>

@@ -32,22 +32,21 @@ import {
   TableContainer,
 } from '@chakra-ui/react'
 import { useForm, Controller } from "react-hook-form";
-import {Link} from 'react-router-dom'
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import {Link} from 'react-router-dom'
 import { CheckCircleIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 
 const formSchema = yup.object({
   functionf: yup.string().required(),
   lowint: yup.number().required(),
-  highint: yup.number().required(),
   tolerance: yup.number().required(),
   maxiter: yup.number().positive().required(),
   errortype: yup.number(),
 }).required();
 
-const FalsePosition = () => {
+const Newton = () => {
   const {
     register,
     handleSubmit,
@@ -66,14 +65,13 @@ const FalsePosition = () => {
     const jsonData = {
       functionf: data.functionf,
       lowint: data.lowint,
-      highint: data.highint,
       tolerance: data.tolerance,
       maxiter: data.maxiter,
       errortype: data.errortype
     };
 
     try {
-      const response = await axios.post('http://127.0.0.1:5000/non_linear/false_position', jsonData, { headers: { 'Content-Type': 'application/json' } });
+      const response = await axios.post('http://127.0.0.1:5000/non_linear/newton', jsonData, { headers: { 'Content-Type': 'application/json' } });
       if (response.data) {
         setResponseData(response.data);
       } else {
@@ -102,11 +100,11 @@ const FalsePosition = () => {
           mt="4em"
           onSubmit={handleSubmit(onSubmit, onInvalid)}
         >
-          <Heading>False Position</Heading>
+          <Heading>Newton</Heading>
 
           <FormControl isInvalid={errors?.functionf} isRequired>
             <FormLabel htmlFor="functionf">Function f</FormLabel>
-            <Input type="text" {...register("functionf")} borderColor="#251605" borderWidth="2px" placeholder='np.log(np.sin(x)**2 + 1)-(1/2)' />
+            <Input type="text" {...register("functionf")} borderColor="#251605" borderWidth="2px" placeholder='3*x*sp.log(x+100) + x**2 * sp.log(x+100)' />
             {errors?.functionf ? (
               <FormErrorMessage>{errors?.functionf?.message}</FormErrorMessage>
             ) : (
@@ -115,20 +113,10 @@ const FalsePosition = () => {
           </FormControl>
 
           <FormControl isInvalid={errors?.lowint} isRequired>
-            <FormLabel htmlFor="lowint">Lower interval value (a)</FormLabel>
+            <FormLabel htmlFor="lowint">Initial value (x0)</FormLabel>
             <Input type="number" {...register("lowint")} borderColor="#251605" borderWidth="2px" placeholder='0' />
             {errors?.lowint ? (
               <FormErrorMessage>{errors?.lowint?.message}</FormErrorMessage>
-            ) : (
-              <FormHelperText></FormHelperText>
-            )}
-          </FormControl>
-
-          <FormControl isInvalid={errors?.highint} isRequired>
-            <FormLabel htmlFor="highint">Higher interval value (b)</FormLabel>
-            <Input type="number" {...register("highint")} borderColor="#251605" borderWidth="2px" placeholder='1' />
-            {errors?.highint ? (
-              <FormErrorMessage>{errors?.highint?.message}</FormErrorMessage>
             ) : (
               <FormHelperText></FormHelperText>
             )}
@@ -153,6 +141,7 @@ const FalsePosition = () => {
               <FormHelperText></FormHelperText>
             )}
           </FormControl>
+
 
           <FormControl isInvalid={errors?.errortype}>
             <FormLabel>Error Type</FormLabel>
@@ -235,11 +224,7 @@ const FalsePosition = () => {
             <List spacing={3} align={'left'}>
               <ListItem>
                 <ListIcon as={CheckCircleIcon} color='green.500' />
-                La función debe ser continua y diferenciable.
-              </ListItem>
-              <ListItem>
-                <ListIcon as={CheckCircleIcon} color='green.500' />
-                Además la función específica evaluada en los extremos del intervalo debe tener un signo diferente.
+                El método de Newton es generalmente más rápido que los otros métodos. Si la derivada tiende a cero, el método pierde velocidad porque es posible que se trate de un caso de raíz múltiple.
               </ListItem>
               <ListItem>
                 <ListIcon as={CheckCircleIcon} color='green.500' />
@@ -251,7 +236,7 @@ const FalsePosition = () => {
               </ListItem>
               <ListItem>
                 <ListIcon as={CheckCircleIcon} color='green.500' />
-                Ambos valores, a y b, deben existir en la función.
+                El valor inicial es muy importante para el metodo.
               </ListItem>
               <ListItem>
                 <ListIcon as={CheckCircleIcon} color='green.500' />
@@ -261,18 +246,18 @@ const FalsePosition = () => {
                 <ListIcon as={CheckCircleIcon} color='green.500' />
                 Para escribir la funcion correcatamente debe ser en este formato:
                 <br/>
-                np.log(np.sin(x)**2 + 1)-(1/2)
+                3*x*sp.log(x+100) + x**2 * sp.log(x+100) + (9*4/16) * sp.log(x+100)
                 <br/>
-                (debes poner 'np.' antes de usar funciones como log(x), sin(x), cos(x), etc.)
+                (debes poner 'sp.' antes de usar funciones como log(x), sin(x), cos(x), etc.)
                 <br />
               </ListItem>
               <ListItem>
                 <ListIcon as={CheckCircleIcon} color='green.500' />
-                Para mas informacion dale un vistazo a la documentacion de numpy.
+                Para mas informacion dale un vistazo a la documentacion de sympy.
                 <br />
                 <br />
                 <Button color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" size='lg' fontWeight={'semibold'} width='70%'>
-                  <Link to="https://numpy.org/doc/stable/user/index.html#user">Numpy's User Guide</Link>
+                  <Link to="https://docs.sympy.org/latest/index.html">Sympy's User Guide</Link>
                 </Button>
               </ListItem>
             </List>
@@ -319,4 +304,4 @@ const FalsePosition = () => {
   );
 };
 
-export default FalsePosition;
+export default Newton;

@@ -1,7 +1,11 @@
 from flask import request, jsonify
 from methods import chapter3, write_file
 from flask import Blueprint
+import os
+from flask import send_from_directory
 interpolation_api = Blueprint('interpolation', __name__)
+download_api3 = Blueprint('download3', __name__)
+
 
 ## falta agregar parametros de las funciones de calcular
 ## leer los datos de entrada en una request
@@ -51,3 +55,9 @@ def vandermonte():
     result = chapter3.calculateVander(x,y)
     write_file.writeFile(result, 3)
     return jsonify(result)
+
+@download_api3.route('/solutionsChapter3.txt', methods=['GET'])
+def download_file():
+    directory = os.path.join(os.path.expanduser('~'), 'Documents', 'Code', 'analisis-numerico', 'backend', 'solutions')
+    filename = 'solutionsChapter3.txt'
+    return send_from_directory(directory, filename)

@@ -13,61 +13,39 @@ import {
   Card,
   CardHeader,
   CardBody, 
-  CardFooter, 
   Text,
-  List,
-  ListIcon,
-  ListItem,
   Radio, 
   RadioGroup,
-  Stack
-
+  Stack,
+  Box,
+  List,
+  ListIcon, 
+  ListItem
 } from "@chakra-ui/react";
 import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
 } from '@chakra-ui/react'
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
-import {CheckCircleIcon} from '@chakra-ui/icons'
+import {Link} from 'react-router-dom'
+import { CheckCircleIcon } from '@chakra-ui/icons';
+import axios from 'axios';
 
-//const phoneRegExp =
-//  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
-const formSchema = yup
-  .object({
-
-    functionf: yup
-      .string()
-      .required(),
-    functionf1: yup
-      .string()
-      .required(),
-    functionf2: yup
-      .string()
-      .required(),
-    initialvalue: yup
-      .number()
-      .required(),
-    tolerance: yup
-      .number()
-      .required(),
-    maxiter: yup
-      .number()
-      .positive()
-      .required(),
-    errortype: yup.number(),
-  })
-  .required();
+const formSchema = yup.object({
+  functionf: yup.string().required(),
+  lowint: yup.number().required(),
+  tolerance: yup.number().required(),
+  maxiter: yup.number().positive().required(),
+  m: yup.number().min(0).max(2),
+  errortype: yup.number(),
+}).required();
 
 const MultipleRoots = () => {
   const {
@@ -81,223 +59,261 @@ const MultipleRoots = () => {
       errortype: "0",
     },
   });
-  const onSubmit = (data) => console.log(data);
+
+  const [responseData, setResponseData] = React.useState(null);
+
+  const onSubmit = async (data) => {
+    const jsonData = {
+      functionf: data.functionf,
+      lowint: data.lowint,
+      tolerance: data.tolerance,
+      maxiter: data.maxiter,
+      m: data.m,
+      errortype: data.errortype
+    };
+
+    try {
+      const response = await axios.post('http://127.0.0.1:5000/non_linear/multiple_roots', jsonData, { headers: { 'Content-Type': 'application/json' } });
+      if (response.data) {
+        setResponseData(response.data);
+      } else {
+        console.error('Empty response from API');
+      }
+    } catch (error) {
+      console.error('Error sending data:', error);
+    }
+  };
+
   const onInvalid = () => null;
   React.useEffect(() => {
     console.log(errors);
   }, [errors]);
+
   return (
+    <SimpleGrid columns={2} spacing={8}>
+      <Container maxW='550px' color='black'>
+        <VStack
+          as="form"
+          minWidth="30%"
+          bgColor="#F5FFC6"
+          padding="2em"
+          borderRadius="12px"
+          shadow="md"
+          mt="4em"
+          onSubmit={handleSubmit(onSubmit, onInvalid)}
+        >
+          <Heading>Multiple Roots</Heading>
 
-  <SimpleGrid columns={2} spacing={8}>
-      <Container maxW='550px' color='black' >
-      <VStack
-        as="form"
-        minWidth="30%"
-        bgColor="#F5FFC6"
-        padding="2em"
-        borderRadius="12px"
-        shadow="md"
-        mt="4em"
-        onSubmit={handleSubmit(onSubmit, onInvalid)}
-      >
-        <Heading>Multiple Roots</Heading>
-
-          <FormControl isInvalid={errors?.functionf} errortext={errors?.functionf?.message} isRequired>
-          <FormLabel htmlFor="functionf">Function f</FormLabel>
-          <Input type="text" {...register("functionf")} borderColor="#251605" borderWidth="2px" placeholder='exp(x) - x - 1'/>
-          {errors?.functionf ? (
-            <FormErrorMessage>{errors?.functionf?.message}</FormErrorMessage>
-          ) : (
-            <FormHelperText></FormHelperText>
-          )}
-        </FormControl>
-
-
-        <FormControl isInvalid={errors?.functionf1} errortext={errors?.functionf1?.message} isRequired>
-          <FormLabel htmlFor="functionf1">Function f' (first derivative of f)</FormLabel>
-          <Input type="text" {...register("functionf1")} borderColor="#251605" borderWidth="2px" placeholder='exp(x) - 1'/>
-          {errors?.functionf1 ? (
-            <FormErrorMessage>{errors?.functionf1?.message}</FormErrorMessage>
-          ) : (
-            <FormHelperText></FormHelperText>
-          )}
-        </FormControl>
-
-        <FormControl isInvalid={errors?.functionf2} errortext={errors?.functionf2?.message} isRequired>
-          <FormLabel htmlFor="functionf2">Function f'' (second derivative of f)</FormLabel>
-          <Input type="text" {...register("functionf2")} borderColor="#251605" borderWidth="2px" placeholder='exp(x)'/>
-          {errors?.functionf2 ? (
-            <FormErrorMessage>{errors?.functionf2?.message}</FormErrorMessage>
-          ) : (
-            <FormHelperText></FormHelperText>
-          )}
-        </FormControl>
-
-
-        <FormControl isInvalid={errors?.initialvalue} errortext={errors?.initialvalue?.message} isRequired>
-          <FormLabel htmlFor="initialvalue">Initial value (x0)</FormLabel>
-          <Input type="number" {...register("initialvalue")} borderColor="#251605" borderWidth="2px" placeholder='1'/>
-          {errors?.initialvalue ? (
-            <FormErrorMessage>{errors?.initialvalue?.message}</FormErrorMessage>
-          ) : (
-            <FormHelperText></FormHelperText>
-          )}
-        </FormControl>
-
-
-        <FormControl isInvalid={errors?.tolerance} errortext={errors?.tolerance?.message} isRequired>
-          <FormLabel htmlFor="tolerance">Tolerance</FormLabel>
-          <Input type="number" {...register("tolerance")} borderColor="#251605" borderWidth="2px" placeholder='1e-5'/>
-          {errors?.tolerance ? (
-            <FormErrorMessage>{errors?.tolerance?.message}</FormErrorMessage>
-          ) : (
-            <FormHelperText></FormHelperText>
-          )}
-        </FormControl>
-
-
-        <FormControl isInvalid={errors?.maxiter} errortext={errors?.maxiter?.message} isRequired>
-          <FormLabel htmlFor="maxiter">Max Iterations</FormLabel>
-          <Input type="number" {...register("maxiter")} borderColor="#251605" borderWidth="2px" placeholder='100'/>
-          {errors?.maxiter ? (
-            <FormErrorMessage>{errors?.maxiter?.message}</FormErrorMessage>
-          ) : (
-            <FormHelperText></FormHelperText>
-          )}
-        </FormControl>
-
-        <FormControl isInvalid={errors?.errortype}>
-          <FormLabel>Error Type</FormLabel>
-          <Controller
-            name="errortype"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <RadioGroup onChange={onChange} value={value}>
-                <Stack direction="row">
-                  <Radio value="0">Relative</Radio>
-                  <Radio value="1">Absolute</Radio>
-                </Stack>
-              </RadioGroup>
+          <FormControl isInvalid={errors?.functionf} isRequired>
+            <FormLabel htmlFor="functionf">Function f</FormLabel>
+            <Input type="text" {...register("functionf")} borderColor="#251605" borderWidth="2px" placeholder='3*x*sp.log(x+100) + x**2 * sp.log(x+100)' />
+            {errors?.functionf ? (
+              <FormErrorMessage>{errors?.functionf?.message}</FormErrorMessage>
+            ) : (
+              <FormHelperText></FormHelperText>
             )}
-          />
-        </FormControl>
-        <br></br>
+          </FormControl>
 
+          <FormControl isInvalid={errors?.lowint} isRequired>
+            <FormLabel htmlFor="lowint">Initial value (x0)</FormLabel>
+            <Input type="number" {...register("lowint")} borderColor="#251605" borderWidth="2px" placeholder='0' />
+            {errors?.lowint ? (
+              <FormErrorMessage>{errors?.lowint?.message}</FormErrorMessage>
+            ) : (
+              <FormHelperText></FormHelperText>
+            )}
+          </FormControl>
 
-        <Button onClick={handleSubmit(onSubmit)} color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" size='lg' fontWeight={'bold'} width='33%' >
-          Calculate
-        </Button>
+          <FormControl isInvalid={errors?.tolerance} isRequired>
+            <FormLabel htmlFor="tolerance">Tolerance</FormLabel>
+            <Input type="number" {...register("tolerance")} borderColor="#251605" borderWidth="2px" placeholder='1e-5' />
+            {errors?.tolerance ? (
+              <FormErrorMessage>{errors?.tolerance?.message}</FormErrorMessage>
+            ) : (
+              <FormHelperText></FormHelperText>
+            )}
+          </FormControl>
 
+          <FormControl isInvalid={errors?.maxiter} isRequired>
+            <FormLabel htmlFor="maxiter">Max Iterations</FormLabel>
+            <Input type="number" {...register("maxiter")} borderColor="#251605" borderWidth="2px" placeholder='100' />
+            {errors?.maxiter ? (
+              <FormErrorMessage>{errors?.maxiter?.message}</FormErrorMessage>
+            ) : (
+              <FormHelperText></FormHelperText>
+            )}
+          </FormControl>
 
+          <FormControl isInvalid={errors?.m} isRequired>
+            <FormLabel htmlFor="m">Multiplicity (m)</FormLabel>
+            <Input type="number" {...register("m")} borderColor="#251605" borderWidth="2px" placeholder='2' />
+            {errors?.m ? (
+              <FormErrorMessage>{errors?.m?.message}</FormErrorMessage>
+            ) : (
+              <FormHelperText></FormHelperText>
+            )}
+          </FormControl>
 
+          <FormControl isInvalid={errors?.errortype}>
+            <FormLabel>Error Type</FormLabel>
+            <Controller
+              name="errortype"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <RadioGroup onChange={onChange} value={value}>
+                  <Stack direction="row">
+                    <Radio value="0">Relative</Radio>
+                    <Radio value="1">Absolute</Radio>
+                  </Stack>
+                </RadioGroup>
+              )}
+            />
+          </FormControl>
+          <br />
 
-
-
-      </VStack>
+          <Button onClick={handleSubmit(onSubmit)} color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" size='lg' fontWeight={'bold'} width='33%'>
+            Calculate
+          </Button>
+        </VStack>
       </Container>
 
-    <Container maxW='600px' color='black'>
-    <br></br>
-    <br></br>
-    <br></br>
+      <Container  minWidth='600px' maxW="1500px" width={'1200px'} color='black'>
+        <br />
+        <br />
+        <br />
 
-      <Card backgroundColor='#F5FFC6' align={'center'} borderRadius="12px">
-            <CardHeader>
-              <Heading size='lg' fontWeight={'bold'}>Table</Heading>
-            </CardHeader>
-            <CardBody>
-            <TableContainer>
-                <Table variant='simple'>
-                  <Thead>
-                    <Tr>
-                      <Th isNumeric>n</Th>
-                      <Th isNumeric>xi</Th>
-                      <Th isNumeric>xs</Th>
-                      <Th isNumeric>E</Th>
-                      <Th isNumeric>fm</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    <Tr>
-                      <Td isNumeric>0</Td>
-                      <Td isNumeric>-1.0</Td>
-                      <Td isNumeric>7.0</Td>
-                      <Td isNumeric>1.0001</Td>
-                      <Td isNumeric>1.5</Td>
-                    </Tr>
+        <Card backgroundColor='#F5FFC6' align={'center'} borderRadius="12px">
+          <CardHeader>
+            <Heading size='lg' fontWeight={'bold'}>Solution</Heading>
+          </CardHeader>
+          <CardBody>
+            {responseData && Array.isArray(responseData) ? (
+              <>
+                <TableContainer>
+                  <Table variant='striped' colorScheme='orange'>
+                    <Thead>
+                      <Tr>
+                        {responseData[0][0].map((header, index) => (
+                          <Th key={index}>{header}</Th>
+                        ))}
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {responseData[0].slice(1).map((row, index) => (
+                        <Tr key={index}>
+                          {row.map((cell, cellIndex) => (
+                            <Td key={cellIndex}>{cell}</Td>
+                          ))}
+                        </Tr>
+                      ))}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
+                <Box bg='tomato' borderRadius="12px" w='100%' p={4} color='white' mt='2em'>
+                  <Text fontWeight={'bold'}>{responseData[1]} es una aproximación de una raiz de f(x)</Text>
+                </Box>
+              </>
+            ) : (
+              <Box bg='tomato' borderRadius="12px" w='100%' p={4} color='white'>
+                <Text>{responseData}</Text>
+              </Box>
+            )}
+            <br />
+            <br />
+          </CardBody>
+        </Card>
+        
+      </Container>
 
-                    
-                  </Tbody>
-                  <Tfoot>
-                    <Tr>
-                      <Th>.. es raiz de f(x)</Th>
-                    </Tr>
-                  </Tfoot>
-                </Table>
-              </TableContainer>
-            </CardBody>
-      </Card>
+      <Container maxW='550px' color='black'>
+        <br />
+        <Card backgroundColor='#F5FFC6' borderRadius="12px">
+          <CardHeader>
+            <Heading size='lg' fontWeight={'bold'}>Help</Heading>
+          </CardHeader>
+          <CardBody>
+            <List spacing={3} align={'left'}>
+              <ListItem>
+                <ListIcon as={CheckCircleIcon} color='green.500' />
+                La función debe ser continua y diferenciable.
+              </ListItem>
+              <ListItem>
+                <ListIcon as={CheckCircleIcon} color='green.500' />
+                La convergencia decrementa o para si hay alguna division por 0.
+              </ListItem>
+              <ListItem>
+                <ListIcon as={CheckCircleIcon} color='green.500' />
+                Debes estar seguro de que la función tenga una raíz.
+              </ListItem>
+              <ListItem>
+                <ListIcon as={CheckCircleIcon} color='green.500' />
+                La tolerancia debe tener un valor positivo.
+              </ListItem>
+              <ListItem>
+                <ListIcon as={CheckCircleIcon} color='green.500' />
+                El número de iteraciones debe ser positivo.
+              </ListItem>
+              <ListItem>
+                <ListIcon as={CheckCircleIcon} color='green.500' />
+                Para escribir la funcion correcatamente debe ser en este formato:
+                <br/>
+                3*x*sp.log(x+100) + x**2 * sp.log(x+100) + (9*4/16) * sp.log(x+100)
+                <br/>
+                (debes poner 'sp.' antes de usar funciones como log(x), sin(x), cos(x), etc.)
+                <br />
+              </ListItem>
+              <ListItem>
+                <ListIcon as={CheckCircleIcon} color='green.500' />
+                Para mas informacion dale un vistazo a la documentacion de sympy.
+                <br />
+                <br />
+                <Button color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" size='lg' fontWeight={'semibold'} width='70%'>
+                  <Link to="https://docs.sympy.org/latest/index.html">Sympy's User Guide</Link>
+                </Button>
+              </ListItem>
+            </List>
+            <br />
+          </CardBody>
+        </Card>
+        <br />
+      </Container>
 
-    </Container>
 
-    <Container maxW='550px' color='black' >
-
-    <br></br>
-
-      <Card backgroundColor='#F5FFC6'  borderRadius="12px">
-            <CardHeader>
-              <Heading size='lg' fontWeight={'bold'}>Help</Heading>
-            </CardHeader>
-            <CardBody>
-              <List spacing={3} align={'left'}>
-                  <ListItem>
-                    <ListIcon as={CheckCircleIcon} color='green.500' />
-                    La convergencia decrece o para si hay alguna division por 0.
-                  </ListItem>
-                  <ListItem>
-                    <ListIcon as={CheckCircleIcon} color='green.500' />
-                    Asegurate de que las derivadas de la funcion sean correctas.
-                  </ListItem>
-                  <ListItem>
-                    <ListIcon as={CheckCircleIcon} color='green.500' />
-                    El valor inicial es importante para el metodo.
-                  </ListItem>
-                  <ListItem>
-                    <ListIcon as={CheckCircleIcon} color='green.500' />
-                    La tolerancia debe tener un valor positivo.
-                  </ListItem>
-                  <ListItem>
-                    <ListIcon as={CheckCircleIcon} color='green.500' />
-                    El número de iteraciones debe ser positivo.
-                  </ListItem>
-                </List>
-                <br></br>
-
-            </CardBody>
-      </Card>
-      <br></br>
-
-
-    </Container>
-
-    <Container maxW='550px' color='black' >
-
-    <br></br>
-
-      <Card backgroundColor='#F5FFC6'  borderRadius="12px">
-            <CardHeader>
-              <Heading size='lg' fontWeight={'bold'}>Graph</Heading>
-            </CardHeader>
-            <CardBody>
-              <Text>hola soy una grafica :p</Text>
-            </CardBody>
-      </Card>
-    </Container>
-
-  </SimpleGrid>
+      <Container maxW='1000px' color='black'>
+        <br />
+        <Card backgroundColor='#F5FFC6' borderRadius="12px">
+          <CardHeader>
+            <Heading size='lg' fontWeight={'bold'}>Graph</Heading>
+            <br />
+            <Text>Para graficar debes darle al botón +, poner la función y se te graficará automáticamente! </Text>
+          </CardHeader>
+          <CardBody>
+            <iframe
+              title="GeoGebra Calculator"
+              src="https://www.geogebra.org/calculator"
+              width="100%"
+              height="500px"
+              style={{ border: '0' }}
+              allowFullScreen
+            ></iframe>
+          </CardBody>
+        </Card>
+        <br></br>
+        <Card backgroundColor='#F5FFC6' borderRadius="12px">
+          <CardHeader>
+            <Heading size='lg' fontWeight={'bold'}>Download</Heading>
+          </CardHeader>
+          <CardBody>
+            <Button color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" size='lg' fontWeight={'semibold'} width='70%'>
+              <a href="http://127.0.0.1:5000/download/solutionsChapter1.txt" download>
+                Download solutionsChapter1.txt
+              </a>
+            </Button>
+          </CardBody>
+        </Card>
+      </Container>
+    </SimpleGrid>
   );
 };
 
 export default MultipleRoots;
-
-

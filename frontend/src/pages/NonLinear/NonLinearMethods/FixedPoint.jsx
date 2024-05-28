@@ -20,7 +20,7 @@ import {
   ListItem,
   Radio, 
   RadioGroup,
-  Stack
+  Stack, Box
 
 } from "@chakra-ui/react";
 import {
@@ -39,6 +39,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import {CheckCircleIcon} from '@chakra-ui/icons'
+import axios from 'axios'
 
 //const phoneRegExp =
 //  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -78,7 +79,36 @@ const FixedPoint = () => {
       errortype: "0",
     },
   });
-  const onSubmit = (data) => console.log(data);
+
+
+  const [responseData, setResponseData] = React.useState(null);
+
+  const onSubmit = async (data) => {
+    const jsonData = {
+      functionf: data.functionf,
+      functiong: data.functiong,
+      initialvalue: data.initialvalue,
+      tolerance: data.tolerance,
+      maxiter: data.maxiter,
+      errortype: data.errortype
+    };
+
+    try {
+      const response = await axios.post('http://127.0.0.1:5000/non_linear/fixed_point', jsonData, { headers: { 'Content-Type': 'application/json' } });
+      if (response.data) {
+        setResponseData(response.data);
+      } else {
+        console.error('Empty response from API');
+      }
+    } catch (error) {
+      console.error('Error sending data:', error);
+    }
+  };
+
+
+
+
+
   const onInvalid = () => null;
   React.useEffect(() => {
     console.log(errors);
@@ -102,7 +132,7 @@ const FixedPoint = () => {
 
         <FormControl isInvalid={errors?.functionf} errortext={errors?.functionf?.message} isRequired>
         <FormLabel htmlFor="functionf">Function f</FormLabel>
-        <Input type="text" {...register("functionf")} borderColor="#251605" borderWidth="2px" placeholder='log(sin(x)^2 + 1)-(1/2) - x'/>
+        <Input type="text" {...register("functionf")} borderColor="#251605" borderWidth="2px" placeholder='-7 * np.log(x) + x - 11'/>
         {errors?.functionf ? (
           <FormErrorMessage>{errors?.functionf?.message}</FormErrorMessage>
         ) : (
@@ -113,7 +143,7 @@ const FixedPoint = () => {
 
       <FormControl isInvalid={errors?.functiong} errortext={errors?.functiong?.message} isRequired>
         <FormLabel htmlFor="functiong">Function g</FormLabel>
-        <Input type="text" {...register("functiong")} borderColor="#251605" borderWidth="2px" placeholder='log(sin(x)^2 + 1)-(1/2)'/>
+        <Input type="text" {...register("functiong")} borderColor="#251605" borderWidth="2px" placeholder='7 * np.log(x) + 11'/>
         {errors?.functiong ? (
           <FormErrorMessage>{errors?.functiong?.message}</FormErrorMessage>
         ) : (
@@ -183,49 +213,53 @@ const FixedPoint = () => {
     </VStack>
     </Container>
 
-    <Container maxW='600px' color='black'>
-    <br></br>
-    <br></br>
-    <br></br>
+    <Container  minWidth='600px' maxW="1500px" width={'1200px'} color='black'>
+        <br />
+        <br />
+        <br />
 
-      <Card backgroundColor='#F5FFC6' align={'center'} borderRadius="12px">
-            <CardHeader>
-              <Heading size='lg' fontWeight={'bold'}>Table</Heading>
-            </CardHeader>
-            <CardBody>
-            <TableContainer>
-                <Table variant='simple'>
-                  <Thead>
-                    <Tr>
-                      <Th isNumeric>n</Th>
-                      <Th isNumeric>xi</Th>
-                      <Th isNumeric>xs</Th>
-                      <Th isNumeric>E</Th>
-                      <Th isNumeric>fm</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    <Tr>
-                      <Td isNumeric>0</Td>
-                      <Td isNumeric>-1.0</Td>
-                      <Td isNumeric>7.0</Td>
-                      <Td isNumeric>1.0001</Td>
-                      <Td isNumeric>1.5</Td>
-                    </Tr>
-
-                    
-                  </Tbody>
-                  <Tfoot>
-                    <Tr>
-                      <Th>.. es raiz de f(x)</Th>
-                    </Tr>
-                  </Tfoot>
-                </Table>
-              </TableContainer>
-            </CardBody>
-      </Card>
-
-    </Container>
+        <Card backgroundColor='#F5FFC6' align={'center'} borderRadius="12px">
+          <CardHeader>
+            <Heading size='lg' fontWeight={'bold'}>Solution</Heading>
+          </CardHeader>
+          <CardBody>
+            {responseData && Array.isArray(responseData) ? (
+              <>
+                <TableContainer>
+                  <Table variant='striped' colorScheme='orange'>
+                    <Thead>
+                      <Tr>
+                        {responseData[0][0].map((header, index) => (
+                          <Th key={index}>{header}</Th>
+                        ))}
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {responseData[0].slice(1).map((row, index) => (
+                        <Tr key={index}>
+                          {row.map((cell, cellIndex) => (
+                            <Td key={cellIndex}>{cell}</Td>
+                          ))}
+                        </Tr>
+                      ))}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
+                <Box bg='tomato' borderRadius="12px" w='100%' p={4} color='white' mt='2em'>
+                  <Text fontWeight={'bold'}>{responseData[1]} es una aproximación de una raiz de f(x)</Text>
+                </Box>
+              </>
+            ) : (
+              <Box bg='tomato' borderRadius="12px" w='100%' p={4} color='white'>
+                <Text>{responseData}</Text>
+              </Box>
+            )}
+            <br />
+            <br />
+          </CardBody>
+        </Card>
+        
+      </Container>
 
     <Container maxW='550px' color='black' >
 
@@ -257,6 +291,24 @@ const FixedPoint = () => {
                     <ListIcon as={CheckCircleIcon} color='green.500' />
                     El número de iteraciones debe ser positivo.
                   </ListItem>
+                  <ListItem>
+                    <ListIcon as={CheckCircleIcon} color='green.500' />
+                    Para escribir la funcion correcatamente debe ser en este formato:
+                    <br/>
+                    np.log(np.sin(x)**2 + 1)-(1/2)
+                    <br/>
+                    (debes poner 'np.' antes de usar funciones como log(x), sin(x), cos(x), etc.)
+                    <br />
+                  </ListItem>
+                  <ListItem>
+                    <ListIcon as={CheckCircleIcon} color='green.500' />
+                    Para mas informacion dale un vistazo a la documentacion de numpy.
+                    <br />
+                    <br />
+                    <Button color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" size='lg' fontWeight={'semibold'} width='70%'>
+                      <Link to="https://numpy.org/doc/stable/user/index.html#user">Numpy's User Guide</Link>
+                    </Button>
+                  </ListItem>
                 </List>
                 <br></br>
 
@@ -267,19 +319,40 @@ const FixedPoint = () => {
 
     </Container>
 
-    <Container maxW='550px' color='black' >
 
-    <br></br>
-
-      <Card backgroundColor='#F5FFC6'  borderRadius="12px">
-            <CardHeader>
-              <Heading size='lg' fontWeight={'bold'}>Graph</Heading>
-            </CardHeader>
-            <CardBody>
-              <Text>hola soy una grafica :p</Text>
-            </CardBody>
-      </Card>
-    </Container>
+    <Container maxW='1000px' color='black'>
+        <br />
+        <Card backgroundColor='#F5FFC6' borderRadius="12px">
+          <CardHeader>
+            <Heading size='lg' fontWeight={'bold'}>Graph</Heading>
+            <br />
+            <Text>Para graficar debes darle al botón +, poner la función y se te graficará automáticamente! </Text>
+          </CardHeader>
+          <CardBody>
+            <iframe
+              title="GeoGebra Calculator"
+              src="https://www.geogebra.org/calculator"
+              width="100%"
+              height="500px"
+              style={{ border: '0' }}
+              allowFullScreen
+            ></iframe>
+          </CardBody>
+        </Card>
+        <br></br>
+        <Card backgroundColor='#F5FFC6' borderRadius="12px">
+          <CardHeader>
+            <Heading size='lg' fontWeight={'bold'}>Download</Heading>
+          </CardHeader>
+          <CardBody>
+            <Button color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" size='lg' fontWeight={'semibold'} width='70%'>
+              <a href="http://127.0.0.1:5000/download/solutionsChapter1.txt" download>
+                Download solutionsChapter1.txt
+              </a>
+            </Button>
+          </CardBody>
+        </Card>
+      </Container>
 
   </SimpleGrid>
   );

@@ -7,6 +7,7 @@ import rfimage from '../media/rfimage.jpg'
 import fpimage from '../media/fpimage.jpg'
 import secantimage from '../media/secantimage.jpg'
 import multipleimage from '../media/multipleimage.jpg'
+import newtonimage from '../media/newtonimage.jpg'
 
 const HomeNonLinear = () => {
   return (
@@ -25,7 +26,7 @@ const HomeNonLinear = () => {
             </CardBody>
             <CardFooter>
               <Button size='md' fontSize={'small'} color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" fontWeight={'bold'} width='100%'>
-                <Link to="/non-linear/bisection">Vamos!</Link>
+                <Link to="/non_linear/bisection">Vamos!</Link>
               </Button>
             </CardFooter>
           </Card>
@@ -38,7 +39,21 @@ const HomeNonLinear = () => {
             </CardBody>
             <CardFooter>
             <Button size='md' fontSize={'small'} color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" fontWeight={'bold'} width='100%'>
-                <Link to="/non-linear/false-position">Vamos!</Link>
+                <Link to="/non_linear/false_position">Vamos!</Link>
+              </Button>
+            </CardFooter>
+          </Card>
+          
+          <Card backgroundColor='#F5FFC6'  borderRadius="12px">
+            <CardHeader>
+              <Heading size='lg' fontWeight={'bold'}>Newton</Heading>
+            </CardHeader>
+            <CardBody>
+              <Image src={newtonimage} alt="kiti" borderRadius="md" width={500} height={265}/>
+            </CardBody>
+            <CardFooter>
+            <Button size='md' fontSize={'small'} color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" fontWeight={'bold'} width='100%'>
+                <Link to="/non_linear/newton">Vamos!</Link>
               </Button>
             </CardFooter>
           </Card>
@@ -51,7 +66,7 @@ const HomeNonLinear = () => {
             </CardBody>
             <CardFooter>
             <Button size='md' fontSize={'small'} color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" fontWeight={'bold'} width='100%'>
-                <Link to="/non-linear/fixed-point">Vamos!</Link>
+                <Link to="/non_linear/fixed_point">Vamos!</Link>
               </Button>
             </CardFooter>
           </Card>
@@ -64,7 +79,7 @@ const HomeNonLinear = () => {
             </CardBody>
             <CardFooter>
             <Button size='md' fontSize={'small'} color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" fontWeight={'bold'} width='100%'>
-                <Link to="/non-linear/secant">Vamos!</Link>
+                <Link to="/non_linear/secant">Vamos!</Link>
               </Button>
             </CardFooter>
           </Card>
@@ -77,7 +92,7 @@ const HomeNonLinear = () => {
             </CardBody>
             <CardFooter>
             <Button size='md' fontSize={'small'} color='#F5FFC6' colorScheme='yellow' backgroundColor="yellow.900" fontWeight={'bold'} width='100%'>
-                <Link to="/non-linear/multiple-roots">Vamos!</Link>
+                <Link to="/non_linear/multiple_roots">Vamos!</Link>
               </Button>
             </CardFooter>
           </Card>

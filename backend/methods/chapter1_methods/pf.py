@@ -39,9 +39,9 @@ def pf_solve(f, g, x0, tol, niter, tipo_e):
         n = c
         print(f"Fracasó en {niter} iteraciones")
 
-    return tabla, s
+    return [[tabla.columns.values.tolist()] + tabla.values.tolist(), s]
 
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     # Example usage:
     def f(x):
         return -7 * np.log(x) + x - 11
@@ -52,4 +52,4 @@ if __name__ == "__main__":
     niter = 100  # Maximum number of iterations
     tabla, s = pf_solve(f, g, x0, tol, niter, 1)
     print(tabla)
-    print(s)
+    print(s)"""

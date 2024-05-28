@@ -52,9 +52,9 @@ def newton(fun, x0, tol, niter, tipo_e):
         s = x0
         print(f'Fracasó en {niter} iteraciones')
     
-    return tabla, s
+    return [[tabla.columns.values.tolist()] + tabla.values.tolist(), s]
 
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     # Ejemplo de uso
     x = sp.symbols('x')
     fun = x**4 -7 *(x**3) +16*(x**2)- 12*x
@@ -63,4 +63,5 @@ if __name__ == "__main__":
     x0 = -1
     tabla, s = newton(fun, x0, tol, niter,1)
     print(tabla)
-    print(s)
+    print(type(tabla))
+    print(s)"""

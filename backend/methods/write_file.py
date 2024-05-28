@@ -7,3 +7,7 @@ def writeFile(solution, chapter):
         with open('./solutions/solutionsChapter3.txt', 'a+') as file:
                 file.write(str(solution) + '\n')
                 file.close()
+    elif(chapter == 1):
+        with open('./solutions/solutionsChapter1.txt', 'a+') as file:
+                file.write(str(solution) + '\n')
+                file.close()

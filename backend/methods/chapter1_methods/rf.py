@@ -71,10 +71,10 @@ def rf(f, ak, bk, tol, niter, tipo_e):
         s = None
         print('El intervalo es inadecuado')
 
-    return tabla, s
+    return [[tabla.columns.values.tolist()] + tabla.values.tolist(), s]
 
 
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     def f(x):
         return -np.log(x)+2-math.e**(-2*x+2)
 
@@ -83,4 +83,4 @@ if __name__ == "__main__":
     tol = 1e-5  # tolerance
     niter = 100  # Maximum number of iterations
     tabla, s = rf(f, ak, bk, tol, niter, 1)
-    print(tabla)
+    print(tabla)"""

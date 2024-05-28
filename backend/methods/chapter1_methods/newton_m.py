@@ -52,9 +52,9 @@ def newton_mod(fun, x0, tol, niter, m, tipo_e):
         s = x0
         print(f'Fracasó en {niter} iteraciones')
     
-    return tabla, s
+    return [[tabla.columns.values.tolist()] + tabla.values.tolist(), s]
 
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     # Ejemplo de uso
     x = sp.symbols('x')
     fun = 3*x*sp.log(x+100) + x**2 * sp.log(x+100) + (9*4/16) * sp.log(x+100)
@@ -64,4 +64,4 @@ if __name__ == "__main__":
     m = 2
     tabla, s = newton_mod(fun, x0, tol, niter, m,0)
     print(tabla)
-    print(s)
+    print(s)"""

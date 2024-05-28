@@ -6,4 +6,4 @@ Calculadora de métodos (Shrek themed)
 
 - Camilo Palacio
 - Valentina Morales 
-- Efrain
+- Efrain Jurado Torres

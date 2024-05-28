@@ -4,6 +4,6 @@ Calculadora de métodos (Shrek themed)
 
 ### Integrantes del equipo: 
 
-- Camilo Palacio
-- Valentina Morales 
-- Efrain
+- Camilo Palacio Restrepo
+- Valentina Morales Villada
+- Efrain Jurado Torres

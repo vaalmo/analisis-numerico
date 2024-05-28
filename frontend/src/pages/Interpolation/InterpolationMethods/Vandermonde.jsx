@@ -176,6 +176,10 @@ const Vandermonde = () => {
               </ListItem>
               <ListItem>
                 <ListIcon as={CheckCircleIcon} color='green.500' />
+                El vector x debe estar ordenado, es decir los valores deben ir de menor a mayor.
+              </ListItem>
+              <ListItem>
+                <ListIcon as={CheckCircleIcon} color='green.500' />
                 El vector y no puede tener valores repetidos.
               </ListItem>
               <ListItem fontWeight={"bold"}>

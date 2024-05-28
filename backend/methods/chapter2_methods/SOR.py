@@ -19,7 +19,7 @@ def sor(A, b, x0, tol, niter, w, tipo_e):
         T = np.linalg.inv(D - w*L) @ ((1 - w)*D + w*U)
         C = w * np.linalg.inv(D - w*L) @ b
         x1 = T @ x0 + C
-        radio = np.max(np.abs(np.linalg.eigvals(T)))
+        w = np.max(np.abs(np.linalg.eigvals(T)))
 
         # Calculo del error segun el tipo
         if tipo_e == 1:

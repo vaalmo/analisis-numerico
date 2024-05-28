@@ -1,10 +1,12 @@
 .navBar{
-  display: flex;
   background-color: #F5FFC6;
   padding: 1%;
   border-radius: 12px;
   
 }
+
+
+
 a{
   color: #251605;
   font-size: 25px;
@@ -15,23 +17,7 @@ a:hover{
   color: #28502E;
 }
 
-.shrek{
-  width: 33%;
-}
-
-.linear{
-  width: 33%;
-}
-
-.non-linear{
-width: 33%;
-}
-
-.interpolation{
-width: 33%;
-}
-
 :root{
-  background-color: #47682C;
+  background-color: #8cb04e;
 }
 

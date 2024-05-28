@@ -43,9 +43,9 @@ def sec(fun, x0, x1, tol, niter, tipo_e):
     
     # Crear tabla con pandas
     tabla = pd.DataFrame({'x0': v_x0,'x1': v_x1,'fx0': v_fx0,'fx1': v_fx1,'E': v_E})
-    return tabla, root
+    return [[tabla.columns.values.tolist()] + tabla.values.tolist(), root]
 
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     # Ejemplo de uso
     x = sp.symbols('x')
     fun = -92 + 2**(-x)*(-1+x) + x**(2/3)
@@ -55,4 +55,4 @@ if __name__ == "__main__":
     niter = 20
     tabla, s = sec(fun, x0, x1, tol, niter,1)
     print(tabla)
-    print(s)
+    print(s)"""

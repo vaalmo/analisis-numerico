@@ -60,9 +60,9 @@ def biseccion(f, xi, xs, tol, niter, tipo_e):
         print("El intervalo es inadecuado")
         return (None, None)
     
-    return tabla, s
+    return [[tabla.columns.values.tolist()] + tabla.values.tolist(), s]
 
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     # Example usage:
     def f(x):
         return x-1.5
@@ -70,6 +70,6 @@ if __name__ == "__main__":
     xs = 7  # Upper bound
     tol = 10e-5  # tolerance
     niter = 100  # Maximum number of iterations
-    tabla, s= biseccion(f, xi, xs, tol, niter,1)
+    tabla, s= biseccion(lambda x : x-1.5, xi, xs, tol, niter,1)
     print(tabla)
-    #print(s)
+    print(s)"""

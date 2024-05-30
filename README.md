@@ -35,7 +35,7 @@ Ahora entramos a la dirección http://localhost:5173/ donde estará el home de l
 ![image](https://github.com/vaalmo/analisis-numerico/assets/83479274/1ce40388-b1d6-478e-9b18-e462aaab1dd9)
 
 
-Finalmente se podrá navegar por todos los métodos y hacer los cálculos que se quieran hacer con los parámetros de cada uno.
+Finalmente se podrá navegar por todos los métodos y hacer los cálculos que se quieran hacer con los parámetros de cada uno. Además tiene una sección de ayudas, podrás graficar la función y descargar un txt con la solución que arroje el método.
 
 
 ![image](https://github.com/vaalmo/analisis-numerico/assets/83479274/8e77c475-1950-4e21-b0af-ae497efa027e)
